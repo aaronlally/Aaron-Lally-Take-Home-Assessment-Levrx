@@ -1,18 +1,11 @@
 import React, {useState, useEffect} from "react";
-import moment, { months } from 'moment';
+import moment from 'moment';
 
 export default function LanguageSelectionComponent(props) {
 
+
     const m = moment()
-    const date = new Date()
-    const dateFormat = {
-    year: date.getFullYear(),
-    month: date.getMonth(),
-    day: date.getDate(),
-    hour: date.getHours(),
-    minute: date.getMinutes(),
-    second: date.getSeconds()
-   }
+    
     const [language, setLanguage] = useState("");
 
     const mappedLanguages = props.items.map((item) => {
@@ -24,8 +17,15 @@ export default function LanguageSelectionComponent(props) {
     }
 
     useEffect(() => {
-        console.log(m.locale(`${language}`).month() + 1)
-        console.log(language)
+        if(language === "en-US") {
+            console.log(`year: ${m.locale(`${language}`).year()} ` + ` month: ${m.locale(`${language}`).month() + 1} ` + ` day: ${m.locale(`${language}`).date()} ` + ` hour: ${m.locale(`${language}`).hours() - 12} ` + ` minute: ${m.locale(`${language}`).minute()} `)
+        }
+        else if (language === "en-GB") {
+            console.log(`year: ${m.locale(`${language}`).year()} ` + ` month: ${m.locale(`${language}`).month() + 1} ` + ` day: ${m.locale(`${language}`).date()} ` + ` hour: ${m.locale(`${language}`).hours() - 7} ` + ` minute: ${m.locale(`${language}`).minute()} `)
+        } 
+        else if (language === "pt-BR") {
+        console.log(`year: ${m.locale(`${language}`).year()} ` + ` month: ${m.locale(`${language}`).month() + 1} ` + ` day: ${m.locale(`${language}`).date()} ` + ` hour: ${m.locale(`${language}`).hours() - 10} ` + ` minute: ${m.locale(`${language}`).minute()} `)
+    }
     }, [language])
 
     return (
@@ -40,3 +40,13 @@ export default function LanguageSelectionComponent(props) {
         </div>
     )
 }
+ 
+
+/* -- hint --
+new Intl.DateTimeFormat(lng, {
+              year: 'numeric', month: 'numeric', day: 'numeric',
+
+              hour: 'numeric', minute: 'numeric', second: 'numeric'
+}).format(value).toString();
+
+*/
